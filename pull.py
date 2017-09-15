@@ -1,5 +1,7 @@
 import json
 import urllib2
+from optparse import OptionParser  
+
 Docker_Hub_Repo_List = "https://index.docker.io/v1/search?q=library&n=%s&page=%s"
 Docker_Hub_Repo = "https://index.docker.io/v1/repositories/library/%s/tags"
 Docker_Store_Repo_Info = "https://store.docker.com/api/content/v1/products/images/%s"
@@ -57,14 +59,33 @@ def get_meta_of(repo):
 
 
 def main():
+    (options, args) = parser.parse_args()
+    get_meta = options.info
+    get_tags = options.tag
+    pull_image = options.pull
+    if pull_image:
+        inspect_image = options.inspect
+
     repos = get_all_repos()
     print len(repos)
     for repo in repos:
-        get_meta_of(repo)
-        get_tags_of(repo)
-    print(repos[1]["meta"]["short_description"])
-    print(repos[1]["tags"])
+        if get_meta:
+            get_meta_of(repo)
+        if get_tags:
+            get_tags_of(repo)
+
+    print(repos[1]["name"])
+
+
+#####
+parser = OptionParser()
+parser.add_option("-i", "--info", action="store_true", dest="info")
+parser.add_option("-t", "--tag", action="store_true", dest="tag")
+parser.add_option("-p", "--pull", action="store_true", dest="pull")
+parser.add_option("-s", "--inspect", action="store_true", dest="inspect")
 
 
 if __name__ == "__main__":
     main()
+
+    
