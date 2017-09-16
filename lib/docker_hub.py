@@ -9,9 +9,6 @@ DOCKER_HUB_REPO_LIST = "https://index.docker.io/v1/search?q=library&n=%s&page=%s
 DOCKER_HUB_REPO_TAGS = "https://index.docker.io/v1/repositories/library/%s/tags"
 DOCKER_STORE_REPO_INFO = "https://store.docker.com/api/content/v1/products/images/%s"
 
-DOCKER_REGISTRY = "localhost:5000"
-DOCKER_HUB_NAMESPACE = "library"
-
 def get_from_url(url):
     print url
     html = "{}"
