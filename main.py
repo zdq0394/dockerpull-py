@@ -10,12 +10,18 @@ OUT_FILE_FULL = "out/repos_full.txt"
 OUT_FILE_LIST = "out/repos_list.txt"
 
 def store(obj, filepath):
-    f = open(filepath, 'a')
-    f.write(json.dumps(obj, indent=4))
-    f.flush()
-    f.close()
+    """
+    store obj to filepath in JSON format.
+    """
+    f_file = open(filepath, 'a')
+    f_file.write(json.dumps(obj, indent=4))
+    f_file.flush()
+    f_file.close()
 
 def sync_dockerhub(options, args):
+    """
+    sync_dockerhub
+    """
     get_meta = options.info
     get_tags = options.tag
     pull_image = options.pull
@@ -37,12 +43,12 @@ def sync_dockerhub(options, args):
             store(repo, OUT_FILE_FULL)
 
 if __name__ == "__main__":
-    parser = OptionParser()
-    parser.add_option("-i", "--info", action="store_true", dest="info")
-    parser.add_option("-t", "--tag", action="store_true", dest="tag")
-    parser.add_option("-p", "--pull", action="store_true", dest="pull")
-    parser.add_option("-s", "--save", action="store_true", dest="save")
-    (options, args) = parser.parse_args()
+    option_parser = OptionParser()
+    option_parser.add_option("-i", "--info", action="store_true", dest="info")
+    option_parser.add_option("-t", "--tag", action="store_true", dest="tag")
+    option_parser.add_option("-p", "--pull", action="store_true", dest="pull")
+    option_parser.add_option("-s", "--save", action="store_true", dest="save")
+    (options, args) = option_parser.parse_args()
 
     # sync from docker hub
     sync_dockerhub(options, args)
