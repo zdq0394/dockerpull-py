@@ -23,14 +23,15 @@ def sync_dockerhub(options, args):
     save = options.save
     repos = docker_hub.get_all_repos()
     print len(repos)
-    if save:
-        store(repos, OUT_FILE_LIST)
-    
     for repo in repos:
         if get_meta:
             docker_hub.get_meta_of(repo)
         if get_tags:
             docker_hub.get_tags_of(repo)
+    if save:
+        store(repos, OUT_FILE_LIST)
+    #pull image and inspect it
+    for repo in repos:
         if pull_image:
             docker_hub.pull_images_of(repo)
         if save:
