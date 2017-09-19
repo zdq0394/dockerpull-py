@@ -3,8 +3,8 @@ pull
 '''
 import json
 import urllib2
-from registry import DC
-from optparse import OptionParser
+from lib.registry import DC
+
 
 DOCKER_HUB_REPO_LIST = "https://index.docker.io/v1/search?q=library&n=%s&page=%s"
 DOCKER_HUB_REPO_TAGS = "https://index.docker.io/v1/repositories/library/%s/tags"
@@ -55,7 +55,6 @@ def get_tags_of(repo):
     html = get_from_url(url)
     result = json.loads(html)
     repo["tags"] = result
-
 
 def get_meta_of(repo):
     print "Get meta of repo: %s" % repo["name"]

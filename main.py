@@ -3,15 +3,14 @@ pull
 '''
 
 from optparse import OptionParser
-import lib.hub as docker_hub
 import json
-import os
+import lib.hub as docker_hub
 
 OUT_FILE_FULL = "out/repos_full.txt"
 OUT_FILE_LIST = "out/repos_list.txt"
 
-def store(obj, file):
-    f = open(file, 'a')
+def store(obj, filepath):
+    f = open(filepath, 'a')
     f.write(json.dumps(obj, indent=4))
     f.flush()
     f.close()
@@ -47,5 +46,3 @@ if __name__ == "__main__":
 
     # sync from docker hub
     sync_dockerhub(options, args)
-
-    
